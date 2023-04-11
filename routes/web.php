@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\DokterController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +20,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+
+    Route::resource('/dokter', DokterController::class)->parameter('dokter', 'id');
 
     Route::get('/logout', [LoginController::class, 'logout']);
 });
@@ -29,4 +29,6 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/register', [RegisterController::class, 'showRegistrationForm']);
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', function () {
+    return 'home';
+});
