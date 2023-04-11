@@ -24,7 +24,7 @@
                     <a href="{{ url('profile') }}" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            Profile
+                            Obat
                         </p>
                     </a>
                 </li>
@@ -32,11 +32,11 @@
                     <a href="{{ url('kuliah') }}" class="nav-link">
                         <i class="nav-icon fas fa-tasks"></i>
                         <p>
-                            Pengalaman Kuliah
+                            Daftar Dokter
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ url('kendaraan') }}" class="nav-link">
                         <i class="nav-icon fas fa-car"></i>
                         <p>
@@ -75,7 +75,7 @@
                             Data Mahasiswa
                         </p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="{{ url('logout') }}" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i>

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\MahasiswaModel;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -51,8 +54,9 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'username' => ['required', 'string', 'min:4', 'unique:users'],
+            'email' => ['required', 'string', 'email:dns', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:4']
         ]);
     }
 
@@ -66,8 +70,26 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make($data['password'])
         ]);
+    }
+
+    protected function store(Request $request): RedirectResponse
+    {
+        $validator = self::validator($request->except(['_token']));
+
+        // Jika validasi gagal, kembalikan pesan error
+        if ($validator->fails()) {
+            return redirect('register')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        self::create($request->except(['_token']));
+
+        return redirect('login')
+            ->with('success', 'Registered Successfully');
     }
 }
