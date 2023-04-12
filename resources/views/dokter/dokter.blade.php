@@ -14,13 +14,22 @@
 
     <!-- Main content -->
     <section class="content">
-        <div class="my-2">
-            <a href="{{ url('/dokter/create') }}" class="mb-3 btn btn-success">Tambah Dokter Disini</a>
+        <div class="row my-2">
+            <div class="col-8">
+                <a href="{{ url('dokter/create') }}" class="mb-3 btn btn-success">Tambah Dokter Disini</a>
+            </div>
+            <form class="col-4" action="{{ url('dokter') }}" method="GET">
+                <div class="input-group">
+                    <label for="keyword"></label>
+                    <input type="text" class="form-control" placeholder="Cari..." id="keyword" name="keyword"
+                           value="{{ $_GET['keyword'] ?? '' }}">
+                    <button class="btn btn-outline-primary" type="submit">Cari</button>
+                </div>
+            </form>
         </div>
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Nama</th>
                 <th scope="col">Spesialis</th>
                 <th scope="col">Pengalaman Kerja</th>
@@ -31,9 +40,8 @@
             </thead>
             <tbody>
             @if(count($doctors) > 0)
-                @foreach($doctors as $i => $doctor)
+                @foreach($doctors as $doctor)
                     <tr>
-                        <th scope="row">{{ $i + 1 }}</th>
                         <td>{{ $doctor->nama }}</td>
                         <td>{{ $doctor->spesialis }}</td>
                         <td>{{ $doctor->pengalaman }} Tahun</td>
@@ -60,12 +68,18 @@
             @endif
             </tbody>
         </table>
-        <!-- Content -->
+
+        <div class="d-flex justify-content-end">
+            {!! $doctors->links() !!}
+        </div>
+
         @if ($message = Session::get('success'))
             <div class="alert alert-success" role="alert">
                 {{ $message }}
             </div>
         @endif
+
+        <!-- Content -->
     </section>
     <!-- /.content -->
 @endsection

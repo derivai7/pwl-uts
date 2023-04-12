@@ -14,11 +14,12 @@ class DokterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Application|Factory|View
+    public function index(Request $request): Application|Factory|View
     {
-        $doctors = DokterModel::all();
+        $doctors = DokterModel::latest()->filter($request->keyword)->paginate(5)->withQueryString();
+
         return view('dokter.dokter')
-            ->with('title', 'Data Mahasiswa')
+            ->with('title', 'Data Dokter')
             ->with('doctors', $doctors);
     }
 
@@ -28,7 +29,7 @@ class DokterController extends Controller
     public function create(): Application|Factory|View
     {
         return view('dokter.tambah-dokter')
-            ->with('title', 'Tambah Mahasiswa');
+            ->with('title', 'Tambah Dokter');
     }
 
     /**
@@ -56,7 +57,7 @@ class DokterController extends Controller
     {
         $doctor = DokterModel::find($id);
         return view('dokter.edit-dokter')
-            ->with('title', 'Ubah Mahasiswa')
+            ->with('title', 'Ubah Dokter')
             ->with('doctor', $doctor);
     }
 
