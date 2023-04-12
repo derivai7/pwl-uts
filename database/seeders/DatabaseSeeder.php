@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Facktories
         DokterModel::factory(20)->create();
 
         $this->call([
