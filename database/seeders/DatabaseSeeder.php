@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\DokterModel;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        DokterModel::factory(20)->create();
+
         $this->call([
             UserSeeder::class,
             DokterSeeder::class,
-            ObatSeeder::class
-            
+            ObatSeeder::class,
         ]);
     }
 }
