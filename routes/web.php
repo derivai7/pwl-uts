@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DokterController;
+use App\Http\Controllers\ObatController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,7 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
 
     Route::resource('/dokter', DokterController::class)->parameter('dokter', 'id');
-
+    Route::resource('/obat', ObatController::class)->parameter('obat' , 'id');
     Route::get('/logout', [LoginController::class, 'logout']);
 });
 
