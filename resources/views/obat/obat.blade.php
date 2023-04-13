@@ -30,7 +30,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Kode Obat</th>
                 <th scope="col">Nama Obat</th>
                 <th scope="col">Jenis Obat</th>
                 <th scope="col">Dosis Kerja</th>
@@ -42,7 +42,7 @@
             @if(count($obat) > 0)
                 @foreach($obat as $i => $o)
                     <tr>
-                        <th scope="row">{{ $i + 1 }}</th>
+                        <td>B010{{ $o->id }}</td>
                         <td>{{ $o->nama_obat }}</td>
                         <td>{{ $o->jenis }}</td>
                         <td>{{ $o->dosis }}</td>
@@ -54,9 +54,10 @@
                             <form method="POST" action="{{ url('/obat/' . $o->id) }}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">
+                                <button onclick="return confirm('Are you sure?')" type="submit"
+                                        class="btn btn-sm btn-danger">
                                     <i class="fas fa-trash-alt"></i>
-                                </button>
+                                </button>
                             </form>
                         </td>
                     </tr>

@@ -98,7 +98,6 @@ class ObatController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-
             'nama_obat' => 'required|string|max:20',
             'jenis' => 'required|string|max:10',
             'dosis' => 'required|string|max:10',
