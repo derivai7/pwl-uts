@@ -57,7 +57,7 @@
                                 <button onclick="return confirm('Are you sure?')" type="submit"
                                         class="btn btn-sm btn-danger">
                                     <i class="fas fa-trash-alt"></i>
-                                </button>
+                                </button>
                             </form>
                         </td>
                     </tr>
