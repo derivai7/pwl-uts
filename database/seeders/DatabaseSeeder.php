@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\DokterModel;
+use App\Models\ObatModel;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,7 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         // Facktories
         DokterModel::factory(20)->create();
-
+        ObatModel::factory(20)->create();
+        
         $this->call([
             UserSeeder::class,
             DokterSeeder::class,
