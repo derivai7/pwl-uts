@@ -14,8 +14,18 @@
 
     <!-- Main content -->
     <section class="content">
-        <div class="my-2">
-            <a href="{{ url('/obat/create') }}" class="mb-3 btn btn-success">Tambah Obat Disini</a>
+        <div class="row my-2">
+            <div class="col-8">
+                <a href="{{ url('obat/create') }}" class="mb-3 btn btn-success">Tambah Obat Disini</a>
+            </div>
+            <form class="col-4" action="{{ url('obat') }}" method="GET">
+                <div class="input-group">
+                    <label for="keyword"></label>
+                    <input type="text" class="form-control" placeholder="Cari..." id="keyword" name="keyword"
+                           value="{{ $_GET['keyword'] ?? '' }}">
+                    <button class="btn btn-outline-primary" type="submit">Cari</button>
+                </div>
+            </form>
         </div>
         <table class="table table-striped">
             <thead>
@@ -30,18 +40,18 @@
             </thead>
             <tbody>
             @if(count($obat) > 0)
-                @foreach($obat as $i => $obat)
+                @foreach($obat as $i => $o)
                     <tr>
                         <th scope="row">{{ $i + 1 }}</th>
-                        <td>{{ $obat->nama_obat }}</td>
-                        <td>{{ $obat->jenis }}</td>
-                        <td>{{ $obat->dosis }}</td>
-                        <td>{{ $obat->harga }}</td>
+                        <td>{{ $o->nama_obat }}</td>
+                        <td>{{ $o->jenis }}</td>
+                        <td>{{ $o->dosis }}</td>
+                        <td>{{ $o->harga }}</td>
                         {{--Tombol edit dan delete--}}
                         <td class="d-flex">
-                            <a href="{{ url('/obat/' . $obat->id . '/edit') }}"
+                            <a href="{{ url('/obat/' . $o->id . '/edit') }}"
                                class="btn btn-sm btn-primary mr-2"><i class="fas fa-edit"></i></a>
-                            <form method="POST" action="{{ url('/obat/' . $obat->id) }}">
+                            <form method="POST" action="{{ url('/obat/' . $o->id) }}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">
@@ -59,6 +69,10 @@
             </tbody>
         </table>
         <!-- Content -->
+        <div class="d-flex justify-content-end">
+            {!! $obat->links() !!}
+        </div>
+
         @if ($message = Session::get('success'))
             <div class="alert alert-success" role="alert">
                 {{ $message }}

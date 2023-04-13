@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\obatModel;
+use App\Models\ObatModel;
 use Illuminate\Console\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -16,9 +16,10 @@ class ObatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): Application|Factory|View
+    public function index(Request $request): Application|Factory|View
     {
-        $obat = obatModel::all();
+        $obat = ObatModel::latest()->filter($request->keyword)->paginate(5)->withQueryString();
+
         return view('obat.obat')
             ->with('title', 'Daftar Obat')
             ->with('obat', $obat);
@@ -49,7 +50,7 @@ class ObatController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'nama_obat' => 'required|string|max:20|unique:obat',
+            'nama_obat' => 'required|string|max:20',
             'jenis' => 'required|string|max:10',
             'dosis' => 'required|string|max:10',
             'harga' => 'required|string|max:30'
@@ -98,7 +99,7 @@ class ObatController extends Controller
     {
         $request->validate([
 
-            'nama_obat' => 'required|string|max:20|unique:obat',
+            'nama_obat' => 'required|string|max:20',
             'jenis' => 'required|string|max:10',
             'dosis' => 'required|string|max:10',
             'harga' => 'required|string|max:30'
