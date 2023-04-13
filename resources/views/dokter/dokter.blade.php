@@ -30,6 +30,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th scope="col">ID Dokter</th>
                 <th scope="col">Nama</th>
                 <th scope="col">Spesialis</th>
                 <th scope="col">Pengalaman Kerja</th>
@@ -42,6 +43,7 @@
             @if(count($doctors) > 0)
                 @foreach($doctors as $doctor)
                     <tr>
+                        <td>D00{{ $doctor->id }}</td>
                         <td>{{ $doctor->nama }}</td>
                         <td>{{ $doctor->spesialis }}</td>
                         <td>{{ $doctor->pengalaman }} Tahun</td>
@@ -54,7 +56,8 @@
                             <form method="POST" action="{{ url('/dokter/' . $doctor->id) }}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">
+                                <button onclick="return confirm('Are you sure?')" type="submit"
+                                        class="btn btn-sm btn-danger">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </form>
